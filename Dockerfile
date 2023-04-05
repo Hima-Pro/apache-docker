@@ -6,8 +6,11 @@ FROM php:7.4-apache
 
 # configure php and project files
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+
+USER www-data
 COPY ./htdocs /var/www/html
 WORKDIR /var/www/html
+USER root
 
 # update pkgs
 RUN apt-get update
