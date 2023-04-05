@@ -19,7 +19,7 @@ docker build --build-arg PKGS="screen fish neofetch" -t apache .
 ```
 docker run -e TTYD_AUTH="user:pass" -p 80:80 apache
 ```
-`PKGTTYD_AUTHS` default: "admin:1234" 
+`TTYD_AUTH` default: "admin:1234" 
 
 ## Notes
 - put web files on `htdocs` folder.
