@@ -21,6 +21,14 @@ RUN apt-get install -y \
 # setup linux user with "admin" as a name and "changeme" as a password
 RUN useradd -rm -d /home/admin -s /usr/bin/fish -g root -G sudo -p $(openssl passwd -1 changeme) admin
 
+# install ttyd
+RUN wget https://github.com/tsl0922/ttyd/releases/download/1.7.3/ttyd.x86_64 -O /usr/bin/ttyd 
+RUN chmod 777 /usr/bin/ttyd
+
+# install cloudflared
+RUN wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb -O /tmp/cloudflared.deb
+RUN dpkg -i /tmp/cloudflared.deb
+
 # enable apache rewrite mod
 RUN a2enmod rewrite
 
