@@ -6,7 +6,7 @@ if [ -z "$TTYD_AUTH" ]; then
 fi
 
 # run ttyd
-ttyd -p 8090 -c $TTYD_AUTH /usr/bin/bash &
+ttyd -p 7681 -c $TTYD_AUTH /usr/bin/bash &
 
 # final step
 echo "ServerName localhost" >> /etc/apache2/apache2.conf

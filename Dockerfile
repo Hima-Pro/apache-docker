@@ -31,6 +31,7 @@ RUN wget https://github.com/tsl0922/ttyd/releases/download/1.7.3/ttyd.x86_64 -O 
 RUN chmod 777 /usr/bin/ttyd
 
 # final step
+EXPOSE 80
 RUN apt-get autoclean && apt-get autoremove -y
 COPY server/docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
