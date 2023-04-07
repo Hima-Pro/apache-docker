@@ -8,7 +8,7 @@ RUN apt-get install -y \
   git fish nmap net-tools curl zip wget supervisor locales cron
 RUN bash -c "apt-get install -y nano $PKGS"
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
-RUN install-php-extensions mbstring zip exif pcntl gd 
+RUN install-php-extensions zip gd $EXTS
 
 # Setup Apache server
 RUN a2enmod rewrite
