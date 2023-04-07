@@ -2,13 +2,14 @@ FROM php:7.4-apache
 
 # Setup packages and php extensions
 ARG PKGS
+ARG EXTS
 RUN apt-get update
 RUN apt-get install -y \
   sudo dialog software-properties-common \
   git fish nmap net-tools curl zip wget supervisor locales cron
 RUN bash -c "apt-get install -y nano $PKGS"
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
-RUN install-php-extensions zip gd $EXTS
+RUN bash -c "install-php-extensions zip gd $EXTS"
 
 # Setup Apache server
 RUN a2enmod rewrite
