@@ -5,7 +5,7 @@ ARG PKGS
 RUN apt-get update
 RUN apt-get install -y \
   sudo dialog software-properties-common \
-  git bash nmap net-tools curl zip wget
+  git fish nmap net-tools curl zip wget
 RUN bash -c "apt-get install -y nano $PKGS"
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
 RUN install-php-extensions zip
@@ -31,7 +31,6 @@ RUN wget https://github.com/tsl0922/ttyd/releases/download/1.7.3/ttyd.x86_64 -O 
 RUN chmod 777 /usr/bin/ttyd
 
 # final step
-EXPOSE 8090
 RUN apt-get autoclean && apt-get autoremove -y
 COPY server/docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
