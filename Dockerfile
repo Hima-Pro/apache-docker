@@ -5,10 +5,10 @@ ARG PKGS
 RUN apt-get update
 RUN apt-get install -y \
   sudo dialog software-properties-common \
-  git fish nmap net-tools curl zip wget
+  git fish nmap net-tools curl zip wget supervisor locales cron
 RUN bash -c "apt-get install -y nano $PKGS"
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
-RUN install-php-extensions zip
+RUN install-php-extensions mbstring zip exif pcntl gd 
 
 # Setup Apache server
 RUN a2enmod rewrite
@@ -32,7 +32,8 @@ RUN chmod 777 /usr/bin/ttyd
 
 # final step
 RUN apt-get autoclean && apt-get autoremove -y
-COPY server/docker-entrypoint.sh /
-RUN chmod +x /docker-entrypoint.sh
-ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["apache2-foreground"]
+COPY server /server
+RUN chmod +x /server/*
+COPY /server/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+ENTRYPOINT ["/server/entrypoint.sh"]
+CMD ["/usr/bin/supervisord"]
